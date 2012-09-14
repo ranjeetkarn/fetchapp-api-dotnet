@@ -61,10 +61,10 @@ namespace Fetch.Api
         /// <returns>base64 encoded key/token pair</returns>
         internal static string GetAuthorization()
         {
-            if ( string.IsNullOrEmpty( Config.Key ) || string.IsNullOrEmpty( Config.Token ) )
-                throw new FetchException( "Fetch API not configured.  Please set values in Fetch.Api.Config" );
+            if (string.IsNullOrEmpty(Config.Key) || string.IsNullOrEmpty(Config.Token))
+                throw new FetchException("Fetch API not configured.  Please set values in Fetch.Api.Config");
 
-            return Convert.ToBase64String( Encoding.UTF8.GetBytes( string.Format( "{0}:{1}", key, token ) ) );
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Format("{0}:{1}", key, token)));
         }
 
     }

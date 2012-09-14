@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace Fetch.Tests
 {
     [TestFixture]
-    public class ItemTests
+    public class ProductTests
     {
 
         [TestFixtureSetUp]
@@ -24,48 +24,48 @@ namespace Fetch.Tests
         public void CreateRetrieveUpdateDelete()
         {
             string sku = DateTime.Now.ToString( "MMddHHmm" );
-            string name = string.Format( "test item - {0}", DateTime.Now.ToString( "MMdd HHmm" ) );
+            string name = string.Format( "test product - {0}", DateTime.Now.ToString( "MMdd HHmm" ) );
 
             // create test
-            Item item = new Item();
-            item.Sku = sku;
-            item.Name = name;
-            item.Save();
+            Product product = new Product();
+            product.Sku = sku;
+            product.Name = name;
+            product.Save();
 
             // retrieve test
-            item = Item.Retrieve( sku );
-            Assert.AreEqual( name, item.Name );
+            product = Product.Retrieve( sku );
+            Assert.AreEqual( name, product.Name );
 
             // update test
-            item.Name += " update test";
-            item.Save();
+            product.Name += " update test";
+            product.Save();
 
             // delete test
-            item.Delete();
+            product.Delete();
 
         }
 
         [Test]
-        public void RetrieveAllItems()
+        public void RetrieveAllProducts()
         {
-            ItemCollection items = Item.RetrieveAll();
-            Assert.IsNotNull( items );
-        }
-
-        [Test]
-        [ExpectedException( typeof( FetchException ) )]
-        public void RetrieveInvalidItem()
-        {
-            Item item = Item.Retrieve( "SomeCrazySkuThatWillNeverExistHopefully" );
+            ProductCollection products = Product.RetrieveAll();
+            Assert.IsNotNull( products );
         }
 
         [Test]
         [ExpectedException( typeof( FetchException ) )]
-        public void CreateInvalidItem()
+        public void RetrieveInvalidProduct()
         {
-            Item item = new Item();
-            item.Name = "Bad Item";
-            item.Save();
+            Product product = Product.Retrieve( "SomeCrazySkuThatWillNeverExistHopefully" );
+        }
+
+        [Test]
+        [ExpectedException( typeof( FetchException ) )]
+        public void CreateInvalidProduct()
+        {
+            Product product = new Product();
+            product.Name = "Bad Product";
+            product.Save();
         }
 
 

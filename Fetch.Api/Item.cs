@@ -5,23 +5,23 @@ using System.Collections.Generic;
 namespace Fetch.Api
 {
     /// <summary>
-    /// Item is a model object that mirrors the type used by the Fetch REST API, and contains
+    /// Product is a model object that mirrors the type used by the Fetch REST API, and contains
     /// all the properties and methods offered by the API.
     /// </summary>
     [Serializable]
-    [XmlType( "item" )]
-    public class Item
+    [XmlType( "product" )]
+    public class Product
     {
         /// <summary>
         /// default constructor
         /// </summary>
-        public Item()
+        public Product()
         {
             this.isNew = true;
         }
 
         /// <summary>
-        /// unique identifier for this item
+        /// unique identifier for this product
         /// </summary>
         [XmlElement( "sku" )]
         public string Sku
@@ -32,7 +32,7 @@ namespace Fetch.Api
         private string sku;
 
         /// <summary>
-        /// friendly name of the item
+        /// friendly name of the product
         /// </summary>
         [XmlElement( "name" )]
         public string Name
@@ -43,7 +43,7 @@ namespace Fetch.Api
         private string name;
 
         /// <summary>
-        /// number of times this Item has been downloaded from Fetch
+        /// number of times this Product has been downloaded from Fetch
         /// </summary>
         [XmlElement( "download-count" )]
         public int DownloadCount
@@ -54,7 +54,7 @@ namespace Fetch.Api
         private int downloadCount;
 
         /// <summary>
-        /// date this item was created
+        /// date this product was created
         /// </summary>
         [XmlElement( "created-at" )]
         public DateTime CreatedAt
@@ -65,7 +65,7 @@ namespace Fetch.Api
         private DateTime createdAt;
 
         /// <summary>
-        /// The name of the file attached to this item
+        /// The name of the file attached to this product
         /// </summary>
         [XmlElement( "filename" )]
         public string Filename
@@ -76,7 +76,7 @@ namespace Fetch.Api
         private string filename;
 
         /// <summary>
-        /// size in bytes of the file attached to this item
+        /// size in bytes of the file attached to this product
         /// </summary>
         [XmlElement( "size-bytes" )]
         public long SizeBytes
@@ -87,7 +87,7 @@ namespace Fetch.Api
         private long size;
 
         /// <summary>
-        /// type of file attached to this item
+        /// type of file attached to this product
         /// </summary>
         [XmlElement( "content-type" )]
         public string ContentType
@@ -98,8 +98,8 @@ namespace Fetch.Api
         private string contentType;
 
         /// <summary>
-        /// Gets true if this item has not been committed to Fetch.  Gets false if this
-        /// item already exists in Fetch.
+        /// Gets true if this product has not been committed to Fetch.  Gets false if this
+        /// product already exists in Fetch.
         /// </summary>
         [XmlIgnore]
         public bool IsNew
@@ -112,14 +112,14 @@ namespace Fetch.Api
         #region Instance Methods
 
         /// <summary>
-        /// Commits the current item to Fetch.  Item is created if new, 
+        /// Commits the current product to Fetch.  Product is created if new, 
         /// or updated if existing.
         /// </summary>
         public void Save()
         {
             if ( IsNew )
             {
-                Item response = Create( this );
+                Product response = Create( this );
                 this.IsNew = false;
             }
             else
@@ -129,7 +129,7 @@ namespace Fetch.Api
         }
 
         /// <summary>
-        /// Deletes the current item from Fetch.
+        /// Deletes the current product from Fetch.
         /// </summary>
         public void Delete()
         {
@@ -141,36 +141,36 @@ namespace Fetch.Api
         #region Static Methods
 
         /// <summary>
-        /// Retrieve all the existing items from Fetch
+        /// Retrieve all the existing products from Fetch
         /// </summary>
-        public static ItemCollection RetrieveAll()
+        public static ProductCollection RetrieveAll()
         {
-            RestConnection<ItemCollection> conn = new RestConnection<ItemCollection>();
-            ItemCollection items = conn.InvokeGet( "items" );
-            items.ForEach( delegate( Item i ) { i.IsNew = false; } );
-            return items;
+            RestConnection<ProductCollection> conn = new RestConnection<ProductCollection>();
+            ProductCollection products = conn.InvokeGet( "products" );
+            products.ForEach( delegate( Product i ) { i.IsNew = false; } );
+            return products;
         }
 
         /// <summary>
-        /// Retrieve a specific item from Fetch
+        /// Retrieve a specific product from Fetch
         /// </summary>
-        /// <param name="sku">The SKU of the Item to retrieve</param>
-        public static Item Retrieve( string sku )
+        /// <param name="sku">The SKU of the Product to retrieve</param>
+        public static Product Retrieve( string sku )
         {
-            RestConnection<Item> conn = new RestConnection<Item>();
-            Item item = conn.InvokeGet( "items", sku );
-            item.IsNew = false;
-            return item;
+            RestConnection<Product> conn = new RestConnection<Product>();
+            Product product = conn.InvokeGet( "products", sku );
+            product.IsNew = false;
+            return product;
         }
 
         /// <summary>
-        /// Deletes an item from Fetch
+        /// Deletes an product from Fetch
         /// </summary>
-        /// <param name="sku">the SKU of the Item to delete</param>
+        /// <param name="sku">the SKU of the Product to delete</param>
         public static void Delete( string sku )
         {
             RestConnection<Message> conn = new RestConnection<Message>();
-            Message response = conn.InvokeGet( "items", sku, "delete" );
+            Message response = conn.InvokeGet( "products", sku, "delete" );
             if ( !response.Text.Equals( Message.OkResponse ) )
             {
                 throw new FetchException( string.Format( "Delete operation not successful: {0}", response.Text ) );
@@ -178,24 +178,24 @@ namespace Fetch.Api
         }
 
         /// <summary>
-        /// Creates a new item in Fetch
+        /// Creates a new product in Fetch
         /// </summary>
-        /// <returns>the actual item object that was created by Fetch</returns>
-        internal static Item Create( Item item )
+        /// <returns>the actual product object that was created by Fetch</returns>
+        internal static Product Create( Product product )
         {
-            RestConnection<Item> conn = new RestConnection<Item>();
-            Item response = conn.InvokePut( "items", item, "create" );
+            RestConnection<Product> conn = new RestConnection<Product>();
+            Product response = conn.InvokePut( "products", product, "create" );
             return response;
         }
 
         /// <summary>
-        /// Updates the given item in Fetch
+        /// Updates the given product in Fetch
         /// </summary>
-        /// <returns>the actual item object that was updated in Fetch</returns>
-        internal static Item Update( Item item )
+        /// <returns>the actual product object that was updated in Fetch</returns>
+        internal static Product Update( Product product )
         {
-            RestConnection<Item> conn = new RestConnection<Item>();
-            Item response = conn.InvokePut( "items", item, item.Sku, "update" );
+            RestConnection<Product> conn = new RestConnection<Product>();
+            Product response = conn.InvokePut( "products", product, product.Sku, "update" );
             return response;
         }
 
@@ -204,12 +204,12 @@ namespace Fetch.Api
     }
 
     /// <summary>
-    /// Represents a collection of items that serializes to match the XML 
+    /// Represents a collection of products that serializes to match the XML 
     /// returned by Fetch
     /// </summary>
     [Serializable]
-    [XmlRoot( "items" )]
-    public class ItemCollection : List<Item>
+    [XmlRoot( "products" )]
+    public class ProductCollection : List<Product>
     {
     }
 }

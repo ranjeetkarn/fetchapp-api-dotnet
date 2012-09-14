@@ -20,10 +20,10 @@ namespace Fetch.Api
         /// </summary>
         public RestConnection()
         {
-            if ( string.IsNullOrEmpty( Config.Key ) || string.IsNullOrEmpty( Config.Token ) )
-                throw new FetchException( "Fetch API not configured.  Please set values in Fetch.Api.Config" );
+            if (string.IsNullOrEmpty(Config.Key) || string.IsNullOrEmpty(Config.Token))
+                throw new FetchException("Fetch API not configured.  Please set values in Fetch.Api.Config");
 
-            this.hostname = string.Format( "http://{0}/api/", Config.Domain );
+            this.hostname = string.Format("http://{0}/api/", Config.Domain);
         }
 
         /// <summary>
@@ -32,33 +32,33 @@ namespace Fetch.Api
         /// <example>http://restful.webservice.com/&lt;methodName&gt;</example>
         /// <param name="methodName">name of the method to execute</param>
         /// <returns>an object deserialized from the XML returned</returns>
-        public ResponseType InvokeGet( string methodName )
+        public ResponseType InvokeGet(string methodName)
         {
-            string url = string.Concat( hostname, methodName );
-            ResponseType output = default( ResponseType );
+            string url = string.Concat(hostname, methodName);
+            ResponseType output = default(ResponseType);
 
             try
             {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create( url );
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.UserAgent = "";
                 request.Method = "GET";
-                request.Headers["Authorization"] = string.Format( "Basic {0}", Config.GetAuthorization() );
+                request.Headers["Authorization"] = string.Format("Basic {0}", Config.GetAuthorization());
 
                 WebResponse response = request.GetResponse();
 
-                if ( response.ContentType.Contains( "application/xml" ) )
+                if (response.ContentType.Contains("application/xml"))
                 {
-                    output = Utility.DeserializeFromXmlStream<ResponseType>( response.GetResponseStream() );
+                    output = Utility.DeserializeFromXmlStream<ResponseType>(response.GetResponseStream());
                 }
                 else
                 {
-                    throw new NotImplementedException( string.Format( "Does not know how to deserialize this content: {0}", response.ContentType ) );
+                    throw new NotImplementedException(string.Format("Does not know how to deserialize this content: {0}", response.ContentType));
                 }
 
             }
-            catch ( WebException webex )
+            catch (WebException webex)
             {
-                ThrowWebException( webex );
+                ThrowWebException(webex);
             }
 
             return output;
@@ -71,14 +71,14 @@ namespace Fetch.Api
         /// <param name="methodName">name of the method to execute</param>
         /// <param name="arguments">list of additional arguments to add the the URL</param>
         /// <returns>an object deserialized from the XML returned</returns>
-        public ResponseType InvokeGet( string methodName, params string[] arguments )
+        public ResponseType InvokeGet(string methodName, params string[] arguments)
         {
-            StringBuilder output = new StringBuilder( methodName );
-            foreach ( string arg in arguments )
+            StringBuilder output = new StringBuilder(methodName);
+            foreach (string arg in arguments)
             {
-                output.AppendFormat( "/{0}", arg );
+                output.AppendFormat("/{0}", arg);
             }
-            return InvokeGet( output.ToString() );
+            return InvokeGet(output.ToString());
         }
 
         /// <summary>
@@ -89,47 +89,47 @@ namespace Fetch.Api
         /// <param name="methodName">name of the method to execute</param>
         /// <param name="toSend">object to serialize into XML and POST</param>
         /// <returns>an object deserialized from the XML returned</returns>
-        public ResponseType InvokePut( string methodName, object toSend )
+        public ResponseType InvokePut(string methodName, object toSend)
         {
-            string url = string.Concat( hostname, methodName );
-            ResponseType output = default( ResponseType );
+            string url = string.Concat(hostname, methodName);
+            ResponseType output = default(ResponseType);
 
-            if ( toSend == null )
-                throw new FetchException( "Nothing to send!" );
+            if (toSend == null)
+                throw new FetchException("Nothing to send!");
 
             try
             {
-                WebRequest request = WebRequest.Create( url );
+                WebRequest request = WebRequest.Create(url);
                 request.Method = "POST";
-                request.Headers["Authorization"] = string.Format( "Basic {0}", Config.GetAuthorization() );
+                request.Headers["Authorization"] = string.Format("Basic {0}", Config.GetAuthorization());
                 request.ContentType = "application/xml; charset=utf-8";
 
-                string xml = Utility.SerializeToXml( toSend );
+                string xml = Utility.SerializeToXml(toSend);
                 // this takes out a certain strange character that gets inserted
-                xml = xml.Replace( char.ConvertFromUtf32( 65279 ), string.Empty );
+                xml = xml.Replace(char.ConvertFromUtf32(65279), string.Empty);
 
-                using ( StreamWriter writer = new StreamWriter( request.GetRequestStream() ) )
+                using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
                 {
-                    writer.Write( xml );
+                    writer.Write(xml);
                     writer.Flush();
                     writer.Close();
                 }
 
                 WebResponse response = request.GetResponse();
 
-                if ( response.ContentType.Contains( "application/xml" ) )
+                if (response.ContentType.Contains("application/xml"))
                 {
-                    output = Utility.DeserializeFromXmlStream<ResponseType>( response.GetResponseStream() );
+                    output = Utility.DeserializeFromXmlStream<ResponseType>(response.GetResponseStream());
                 }
                 else
                 {
-                    throw new NotImplementedException( string.Format( "Does not know how to deserialize this content: {0}", response.ContentType ) );
+                    throw new NotImplementedException(string.Format("Does not know how to deserialize this content: {0}", response.ContentType));
                 }
 
             }
-            catch ( WebException webex )
+            catch (WebException webex)
             {
-                ThrowWebException( webex );
+                ThrowWebException(webex);
             }
 
             return output;
@@ -144,39 +144,39 @@ namespace Fetch.Api
         /// <param name="toSend">object to serialize into XML and POST</param>
         /// <param name="arguments">list of additional arguments to add the the URL</param>
         /// <returns>an object deserialized from the XML returned</returns>
-        public ResponseType InvokePut( string methodName, object toSend, params string[] arguments )
+        public ResponseType InvokePut(string methodName, object toSend, params string[] arguments)
         {
-            StringBuilder output = new StringBuilder( methodName );
-            foreach ( string arg in arguments )
+            StringBuilder output = new StringBuilder(methodName);
+            foreach (string arg in arguments)
             {
-                output.AppendFormat( "/{0}", arg );
+                output.AppendFormat("/{0}", arg);
             }
-            return InvokePut( output.ToString(), toSend );
+            return InvokePut(output.ToString(), toSend);
         }
 
         /// <summary>
         /// Reads any error messages thrown from the connection, and rethrows the exception w/ 
         /// the additional information
         /// </summary>
-        private void ThrowWebException( WebException webex )
+        private void ThrowWebException(WebException webex)
         {
             Message response;
             try
             {
-                response = Utility.DeserializeFromXmlStream<Message>( webex.Response.GetResponseStream() );
+                response = Utility.DeserializeFromXmlStream<Message>(webex.Response.GetResponseStream());
             }
             catch
             {
                 string message = string.Empty;
                 Stream stream = webex.Response.GetResponseStream();
                 stream.Position = 0;
-                using ( StreamReader reader = new StreamReader( stream ) )
+                using (StreamReader reader = new StreamReader(stream))
                 {
                     message = reader.ReadToEnd();
                 }
-                throw new FetchException( string.Format( "Error connecting to host: {0}", message ), webex );
+                throw new FetchException(string.Format("Error connecting to host: {0}", message), webex);
             }
-            throw new FetchException( string.Format( "Error connecting to host: {0}", response.Text ), webex );
+            throw new FetchException(string.Format("Error connecting to host: {0}", response.Text), webex);
         }
 
     }

@@ -8,7 +8,7 @@ namespace Fetch.Api
     /// Order is a model object that mirrors the type used by the Fetch REST API, and contains
     /// all the properties and methods offered by the API.
     /// </summary>
-    [XmlType( "order" )]
+    [XmlType("order")]
     public class Order
     {
         /// <summary>
@@ -17,13 +17,13 @@ namespace Fetch.Api
         public Order()
         {
             this.IsNew = true;
-            this.orderItems = new SerializableList<OrderItem>();
+            this.orderProducts = new SerializableList<OrderProduct>();
         }
 
         /// <summary>
         /// Gets or Sets whether or not to send an email when this order is created
         /// </summary>
-        [XmlElement( "send_email" )]
+        [XmlElement("send_email")]
         public bool SendEmailFlag
         {
             get { return sendEmail; }
@@ -34,7 +34,7 @@ namespace Fetch.Api
         /// <summary>
         /// unique ID of this order
         /// </summary>
-        [XmlElement( "id" )]
+        [XmlElement("id")]
         public string Id
         {
             get { return id; }
@@ -45,7 +45,7 @@ namespace Fetch.Api
         /// <summary>
         /// textual description of the order
         /// </summary>
-        [XmlElement( "title" )]
+        [XmlElement("title")]
         public string Title
         {
             get { return title; }
@@ -56,7 +56,7 @@ namespace Fetch.Api
         /// <summary>
         /// first name of the customer
         /// </summary>
-        [XmlElement( "first_name" )]
+        [XmlElement("first_name")]
         public string FirstName
         {
             get { return firstName; }
@@ -67,7 +67,7 @@ namespace Fetch.Api
         /// <summary>
         /// last name of the customer
         /// </summary>
-        [XmlElement( "last_name" )]
+        [XmlElement("last_name")]
         public string LastName
         {
             get { return lastName; }
@@ -78,7 +78,7 @@ namespace Fetch.Api
         /// <summary>
         /// email address of the customer
         /// </summary>
-        [XmlElement( "email" )]
+        [XmlElement("email")]
         public string Email
         {
             get { return email; }
@@ -89,7 +89,7 @@ namespace Fetch.Api
         /// <summary>
         /// date that this order will expire, and no longer be available for download
         /// </summary>
-        [XmlElement( "expiration_date" )]
+        [XmlElement("expiration_date")]
         public DateTime ExpirationDate
         {
             get { return expirationDate; }
@@ -98,9 +98,9 @@ namespace Fetch.Api
         private DateTime expirationDate;
 
         /// <summary>
-        /// number of times items in this order have been downloaded
+        /// number of times products in this order have been downloaded
         /// </summary>
-        [XmlElement( "download_count" )]
+        [XmlElement("download_count")]
         public int DownloadCount
         {
             get { return downloadCount; }
@@ -111,7 +111,7 @@ namespace Fetch.Api
         /// <summary>
         /// date that this order was created
         /// </summary>
-        [XmlElement( "created_at" )]
+        [XmlElement("created_at")]
         public DateTime CreatedAt
         {
             get { return createdAt; }
@@ -120,21 +120,21 @@ namespace Fetch.Api
         private DateTime createdAt;
 
         /// <summary>
-        /// items that are included in this order
+        /// products that are included in this order
         /// </summary>
-        [XmlElement( "order_items" )]
-        public SerializableList<OrderItem> OrderItems
+        [XmlElement("order_products")]
+        public SerializableList<OrderProduct> OrderProducts
         {
             get
             {
                 // make sure this attribute is always on it,
                 // b/c it does not come back when deserialized
-                orderItems.Attributes["type"] = "array";
-                return orderItems;
+                orderProducts.Attributes["type"] = "array";
+                return orderProducts;
             }
-            set {  orderItems = value; }
+            set { orderProducts = value; }
         }
-        private SerializableList<OrderItem> orderItems;
+        private SerializableList<OrderProduct> orderProducts;
 
         /// <summary>
         /// Gets true if this order has not been committed to Fetch.  Gets false if this
@@ -156,13 +156,13 @@ namespace Fetch.Api
         /// </summary>
         public void Save()
         {
-            if ( IsNew )
+            if (IsNew)
             {
-                Create( this );
+                Create(this);
             }
             else
             {
-                Update( this );
+                Update(this);
             }
         }
 
@@ -171,7 +171,7 @@ namespace Fetch.Api
         /// </summary>
         public void Delete()
         {
-            Delete( this.Id );
+            Delete(this.Id);
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace Fetch.Api
         /// </summary>
         public void Expire()
         {
-            Expire( this.Id );
+            Expire(this.Id);
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace Fetch.Api
         /// </summary>
         public void SendEmail()
         {
-            SendEmail( this.Id );
+            SendEmail(this.Id);
         }
 
         #endregion
@@ -201,8 +201,8 @@ namespace Fetch.Api
         public static OrderCollection RetrieveAll()
         {
             RestConnection<OrderCollection> conn = new RestConnection<OrderCollection>();
-            OrderCollection orders = conn.InvokeGet( "orders" );
-            orders.ForEach( delegate( Order o ) { o.isNew = false; } );
+            OrderCollection orders = conn.InvokeGet("orders");
+            orders.ForEach(delegate(Order o) { o.isNew = false; });
             return orders;
         }
 
@@ -210,10 +210,10 @@ namespace Fetch.Api
         /// Retrieve a specific order from Fetch
         /// </summary>
         /// <param name="id">unique ID of the order to retrieve</param>
-        public static Order Retrieve( string id )
+        public static Order Retrieve(string id)
         {
             RestConnection<Order> conn = new RestConnection<Order>();
-            Order order = conn.InvokeGet( "orders", id );
+            Order order = conn.InvokeGet("orders", id);
             order.IsNew = false;
             return order;
         }
@@ -222,13 +222,13 @@ namespace Fetch.Api
         /// Deletes the given order from Fetch
         /// </summary>
         /// <param name="id">unique ID of the order to delete</param>
-        public static void Delete( string id )
+        public static void Delete(string id)
         {
             RestConnection<Message> conn = new RestConnection<Message>();
-            Message response = conn.InvokeGet( "orders", id, "delete" );
-            if ( !response.Text.Equals( Message.OkResponse ) )
+            Message response = conn.InvokeGet("orders", id, "delete");
+            if (!response.Text.Equals(Message.OkResponse))
             {
-                throw new FetchException( string.Format( "Delete operation not successful: {0}", response.Text ) );
+                throw new FetchException(string.Format("Delete operation not successful: {0}", response.Text));
             }
         }
 
@@ -236,13 +236,13 @@ namespace Fetch.Api
         /// Expires the given order in Fetch, so it may no longer be downloaded.
         /// </summary>
         /// <param name="id">unique ID of the order</param>
-        public static void Expire( string id )
+        public static void Expire(string id)
         {
             RestConnection<Message> conn = new RestConnection<Message>();
-            Message response = conn.InvokeGet( "orders", id, "expire" );
-            if ( !response.Text.Equals( Message.OkResponse ) )
+            Message response = conn.InvokeGet("orders", id, "expire");
+            if (!response.Text.Equals(Message.OkResponse))
             {
-                throw new FetchException( string.Format( "Expire operation not successful: {0}", response.Text ) );
+                throw new FetchException(string.Format("Expire operation not successful: {0}", response.Text));
             }
         }
 
@@ -250,13 +250,13 @@ namespace Fetch.Api
         /// Forces an email to be sent to the customer
         /// </summary>
         /// <param name="id">unique ID of the order</param>
-        public static void SendEmail( string id )
+        public static void SendEmail(string id)
         {
             RestConnection<Message> conn = new RestConnection<Message>();
-            Message response = conn.InvokeGet( "orders", id, "send_email" );
-            if ( !response.Text.Equals( Message.OkResponse ) )
+            Message response = conn.InvokeGet("orders", id, "send_email");
+            if (!response.Text.Equals(Message.OkResponse))
             {
-                throw new FetchException( string.Format( "SendEmail operation not successful: {0}", response.Text ) );
+                throw new FetchException(string.Format("SendEmail operation not successful: {0}", response.Text));
             }
         }
 
@@ -265,10 +265,10 @@ namespace Fetch.Api
         /// </summary>
         /// <param name="order">the order data to create</param>
         /// <returns>the actual Order object created by Fetch</returns>
-        internal static Order Create( Order order )
+        internal static Order Create(Order order)
         {
             RestConnection<Order> conn = new RestConnection<Order>();
-            Order response = conn.InvokePut( "orders", order, "create" );
+            Order response = conn.InvokePut("orders", order, "create");
             return response;
         }
 
@@ -277,10 +277,10 @@ namespace Fetch.Api
         /// </summary>
         /// <param name="order">the order data to update</param>
         /// <returns>the actual Order object that was updated in Fetch</returns>
-        internal static Order Update( Order order )
+        internal static Order Update(Order order)
         {
             RestConnection<Order> conn = new RestConnection<Order>();
-            Order response = conn.InvokePut( "orders", order, order.Id, "update" );
+            Order response = conn.InvokePut("orders", order, order.Id, "update");
             return response;
         }
 
@@ -293,22 +293,22 @@ namespace Fetch.Api
     /// returned by Fetch
     /// </summary>
     [Serializable]
-    [XmlType( "orders" )]
+    [XmlType("orders")]
     public class OrderCollection : List<Order>
     {
     }
 
     /// <summary>
-    /// object that is used to describe items included in an order
+    /// object that is used to describe products included in an order
     /// </summary>
     [Serializable]
-    [XmlType( "order_item" )]
-    public class OrderItem
+    [XmlType("order_product")]
+    public class OrderProduct
     {
         /// <summary>
-        /// unique ID of an item in an order
+        /// unique ID of an product in an order
         /// </summary>
-        [XmlElement( "sku" )]
+        [XmlElement("sku")]
         public string Sku
         {
             get { return sku; }

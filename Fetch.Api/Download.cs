@@ -5,16 +5,16 @@ using System.Collections.Generic;
 namespace Fetch.Api
 {
     /// <summary>
-    /// Item is a model object that mirrors the type used by the Fetch REST API, and contains
+    /// Product is a model object that mirrors the type used by the Fetch REST API, and contains
     /// all the properties and methods offered by the API.
     /// </summary>
     [Serializable]
     [XmlType("download")]
     public class Download
     {
-        
+
         /// <summary>
-        /// unique identifier for this item
+        /// unique identifier for this product
         /// </summary>
         [XmlElement("id")]
         public int Id
@@ -36,15 +36,15 @@ namespace Fetch.Api
         private string orderId;
 
         /// <summary>
-        /// Item Sku
+        /// Product Sku
         /// </summary>
-        [XmlElement("item_sku")]
-        public string ItemSku
+        [XmlElement("product_sku")]
+        public string ProductSku
         {
-            get { return itemSku; }
-            set { itemSku = value; }
+            get { return productSku; }
+            set { productSku = value; }
         }
-        private string itemSku;
+        private string productSku;
 
         /// <summary>
         /// IP Address of client
@@ -58,7 +58,7 @@ namespace Fetch.Api
         private string ipAddress;
 
         /// <summary>
-        /// date this item was downoloaded
+        /// date this product was downoloaded
         /// </summary>
         [XmlElement("downloaded-at")]
         public DateTime DownloadedAt
@@ -78,11 +78,11 @@ namespace Fetch.Api
             set { size = value; }
         }
         private long size;
-       
+
         #region Static Methods
 
         /// <summary>
-        /// Retrieve all the existing items from Fetch
+        /// Retrieve all the existing products from Fetch
         /// </summary>
         public static DownloadCollection RetrieveAll()
         {
@@ -92,9 +92,9 @@ namespace Fetch.Api
         }
 
         /// <summary>
-        /// Retrieve a specific item from Fetch
+        /// Retrieve a specific product from Fetch
         /// </summary>
-        /// <param name="sku">The SKU of the Item to retrieve</param>
+        /// <param name="sku">The SKU of the Product to retrieve</param>
         public static Download Retrieve(int id)
         {
             RestConnection<Download> conn = new RestConnection<Download>();
@@ -107,7 +107,7 @@ namespace Fetch.Api
     }
 
     /// <summary>
-    /// Represents a collection of items that serializes to match the XML 
+    /// Represents a collection of products that serializes to match the XML 
     /// returned by Fetch
     /// </summary>
     [Serializable]

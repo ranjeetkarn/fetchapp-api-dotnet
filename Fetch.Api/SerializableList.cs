@@ -13,33 +13,33 @@ namespace Fetch.Api
     /// to allow the user to add custom attributes to the list.  The .NET Framework List overrides
     /// any serialization of properties of a custom list class, so they don't get serialized.
     /// </summary>
-    /// <typeparam name="ItemType">type of the item in the list</typeparam>
+    /// <typeparam name="ProductType">type of the product in the list</typeparam>
     [Serializable]
-    public class SerializableList<ItemType> : ICollection<ItemType>, IEnumerable<ItemType>, IXmlSerializable
+    public class SerializableList<ProductType> : ICollection<ProductType>, IEnumerable<ProductType>, IXmlSerializable
     {
-        private List<ItemType> list;
+        private List<ProductType> list;
 
         /// <summary>
         /// default constructor
         /// </summary>
         public SerializableList()
         {
-            list = new List<ItemType>();
+            list = new List<ProductType>();
             attributes = new NameValueCollection();
         }
 
-        #region ICollection<ItemType> Members
+        #region ICollection<ProductType> Members
 
         /// <summary>
-        /// Add an item to the list
+        /// Add an product to the list
         /// </summary>
-        public void Add( ItemType item )
+        public void Add(ProductType product)
         {
-            list.Add( item );
+            list.Add(product);
         }
 
         /// <summary>
-        /// Clear all items from the list
+        /// Clear all products from the list
         /// </summary>
         public void Clear()
         {
@@ -47,24 +47,24 @@ namespace Fetch.Api
         }
 
         /// <summary>
-        /// Returns true if the given item exists in the list
+        /// Returns true if the given product exists in the list
         /// </summary>
-        public bool Contains( ItemType item )
+        public bool Contains(ProductType product)
         {
-            return list.Contains( item );
+            return list.Contains(product);
         }
 
         /// <summary>
         /// Copies the contents of the list into the given array, 
         /// at the given index
         /// </summary>
-        public void CopyTo( ItemType[] array, int arrayIndex )
+        public void CopyTo(ProductType[] array, int arrayIndex)
         {
-            list.CopyTo( array, arrayIndex );
+            list.CopyTo(array, arrayIndex);
         }
 
         /// <summary>
-        /// Gets the number of items in the list
+        /// Gets the number of products in the list
         /// </summary>
         public int Count
         {
@@ -80,20 +80,20 @@ namespace Fetch.Api
         }
 
         /// <summary>
-        /// Remove the given item from the list
+        /// Remove the given product from the list
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="product"></param>
         /// <returns></returns>
-        public bool Remove( ItemType item )
+        public bool Remove(ProductType product)
         {
-            return list.Remove( item );
+            return list.Remove(product);
         }
 
         /// <summary>
         /// Get the enumerator object from the list
         /// </summary>
         /// <returns></returns>
-        public IEnumerator<ItemType> GetEnumerator()
+        public IEnumerator<ProductType> GetEnumerator()
         {
             return list.GetEnumerator();
         }
@@ -134,25 +134,25 @@ namespace Fetch.Api
         /// Reads data for this list in from the given XmlReader.
         /// May be overridden in a derived class to populate custom properties
         /// </summary>
-        public virtual void ReadXml( XmlReader reader )
+        public virtual void ReadXml(XmlReader reader)
         {
             XmlDocument xDoc = new XmlDocument();
-            xDoc.Load( reader );
+            xDoc.Load(reader);
 
-            if ( xDoc.HasChildNodes )
+            if (xDoc.HasChildNodes)
             {
                 XmlNode listNode = xDoc.FirstChild;
-                if ( listNode.HasChildNodes )
+                if (listNode.HasChildNodes)
                 {
-                    XmlNode itemNode = listNode.FirstChild;
+                    XmlNode productNode = listNode.FirstChild;
                     do
                     {
-                        ItemType item = Utility.DeserializeFromXml<ItemType>( itemNode.OuterXml );
-                        list.Add( item );
+                        ProductType product = Utility.DeserializeFromXml<ProductType>(productNode.OuterXml);
+                        list.Add(product);
 
-                        itemNode = itemNode.NextSibling;
+                        productNode = productNode.NextSibling;
                     }
-                    while ( itemNode != null );
+                    while (productNode != null);
                 }
             }
 
@@ -162,20 +162,20 @@ namespace Fetch.Api
         /// Writes data from this list into the given XmlWriter.
         /// May be overridden in a derived class to write custom properties
         /// </summary>
-        public virtual void WriteXml( XmlWriter writer )
+        public virtual void WriteXml(XmlWriter writer)
         {
 
-            foreach ( string key in Attributes.Keys )
+            foreach (string key in Attributes.Keys)
             {
-                writer.WriteAttributeString( key, Attributes[key] );
+                writer.WriteAttributeString(key, Attributes[key]);
             }
 
             string docDec = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
-            foreach ( ItemType item in list )
+            foreach (ProductType product in list)
             {
-                string xml = Utility.SerializeToXml( item );
-                xml = xml.Replace( docDec, string.Empty );
-                writer.WriteRaw( xml );
+                string xml = Utility.SerializeToXml(product);
+                xml = xml.Replace(docDec, string.Empty);
+                writer.WriteRaw(xml);
             }
 
         }

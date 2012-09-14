@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Fetch.Api
 {
     /// <summary>
-    /// Item is a model object that mirrors the type used by the Fetch REST API, and contains
+    /// Product is a model object that mirrors the type used by the Fetch REST API, and contains
     /// all the properties and methods offered by the API.
     /// </summary>
     [Serializable]
@@ -91,7 +91,7 @@ namespace Fetch.Api
         private string paypalAddress;
 
         /// <summary>
-        /// Number of hours an Item is available for download after an order is placed
+        /// Number of hours an Product is available for download after an order is placed
         /// </summary>
         [XmlElement("order_expiration_in_hours")]
         public int OrderExpirationInHours
@@ -102,10 +102,10 @@ namespace Fetch.Api
         private int orderExpiration;
 
         /// <summary>
-        /// Number of times an Item can be downloaded for an order
+        /// Number of times an Product can be downloaded for an order
         /// </summary>
-        [XmlElement("download_limit_per_item")]
-        public int DownloadLimitPerItem
+        [XmlElement("download_limit_per_product")]
+        public int DownloadLimitPerProduct
         {
             get { return download_limit; }
             set { download_limit = value; }
@@ -142,7 +142,7 @@ namespace Fetch.Api
         public static Account Details()
         {
             RestConnection<Account> conn = new RestConnection<Account>();
-            Account account = conn.InvokeGet("account"); 
+            Account account = conn.InvokeGet("account");
             return account;
         }
 

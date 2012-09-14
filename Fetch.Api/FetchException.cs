@@ -15,12 +15,12 @@ namespace Fetch.Api
         /// <summary>
         /// constructor with a message to include
         /// </summary>
-        public FetchException( string message ) : base( message ) { }
+        public FetchException(string message) : base(message) { }
 
         /// <summary>
         /// constructor with a message and inner exception to include
         /// </summary>
-        public FetchException( string message, Exception ex ) : base( message, ex ) { }
+        public FetchException(string message, Exception ex) : base(message, ex) { }
 
     }
 

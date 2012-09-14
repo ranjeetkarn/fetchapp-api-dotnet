@@ -13,8 +13,8 @@ namespace Fetch.Tests
     public class OrderTests
     {
 
-        private string item1Sku = "00000001";
-        private string item2Sku = "00000010";
+        private string product1Sku = "00000001";
+        private string product2Sku = "00000010";
 
         [TestFixtureSetUp]
         public void FixtureSetUp()
@@ -130,13 +130,13 @@ namespace Fetch.Tests
             order.ExpirationDate = DateTime.Now.AddDays( 1.0 );
             order.SendEmailFlag = false;
 
-            OrderItem i = new OrderItem();
-            i.Sku = item1Sku;
-            order.OrderItems.Add( i );
+            OrderProduct i = new OrderProduct();
+            i.Sku = product1Sku;
+            order.OrderProducts.Add( i );
 
-            i = new OrderItem();
-            i.Sku = item2Sku;
-            order.OrderItems.Add( i );
+            i = new OrderProduct();
+            i.Sku = product2Sku;
+            order.OrderProducts.Add( i );
             return order;
         }
 

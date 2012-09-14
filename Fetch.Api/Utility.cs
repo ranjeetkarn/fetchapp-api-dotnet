@@ -18,19 +18,19 @@ namespace Fetch.Api
         /// </summary>
         /// <param name="target">object to serialize</param>
         /// <returns>XML string</returns>
-        public static string SerializeToXml( object target )
+        public static string SerializeToXml(object target)
         {
-            using ( MemoryStream memoryStream = new MemoryStream() )
+            using (MemoryStream memoryStream = new MemoryStream())
             {
                 XmlSerializerNamespaces xmlns = new XmlSerializerNamespaces();
-                xmlns.Add( "", "" );
+                xmlns.Add("", "");
 
-                XmlTextWriter xmlWriter = new XmlTextWriter( memoryStream, Encoding.UTF8 );
+                XmlTextWriter xmlWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
 
-                XmlSerializer serializer = new XmlSerializer( target.GetType() );
-                serializer.Serialize( xmlWriter, target, xmlns );
+                XmlSerializer serializer = new XmlSerializer(target.GetType());
+                serializer.Serialize(xmlWriter, target, xmlns);
 
-                return Encoding.UTF8.GetString( memoryStream.ToArray() );
+                return Encoding.UTF8.GetString(memoryStream.ToArray());
             }
         }
 
@@ -41,10 +41,10 @@ namespace Fetch.Api
         /// <typeparam name="T">type of the object to deserialize</typeparam>
         /// <param name="stream">XML stream containing the object data</param>
         /// <returns>instance of deserialized type</returns>
-        public static T DeserializeFromXmlStream<T>( Stream stream )
+        public static T DeserializeFromXmlStream<T>(Stream stream)
         {
-            XmlSerializer serializer = new XmlSerializer( typeof( T ) );
-            return (T)serializer.Deserialize( stream );
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            return (T)serializer.Deserialize(stream);
         }
 
         /// <summary>
@@ -54,12 +54,12 @@ namespace Fetch.Api
         /// <typeparam name="T">type of the object to deserialize</typeparam>
         /// <param name="xml">string of XML</param>
         /// <returns>instance of deserialized type</returns>
-        public static T DeserializeFromXml<T>( string xml )
+        public static T DeserializeFromXml<T>(string xml)
         {
-            using ( StringReader reader = new StringReader( xml ) )
+            using (StringReader reader = new StringReader(xml))
             {
-                XmlSerializer serializer = new XmlSerializer( typeof( T ) );
-                return (T)serializer.Deserialize( reader );
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                return (T)serializer.Deserialize(reader);
             }
         }
 

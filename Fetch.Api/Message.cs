@@ -8,7 +8,7 @@ namespace Fetch.Api
     /// of the opertaion.
     /// </summary>
     [Serializable]
-    [XmlType( "message" )]
+    [XmlType("message")]
     public class Message
     {
 
