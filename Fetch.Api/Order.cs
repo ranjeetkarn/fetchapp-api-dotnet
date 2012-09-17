@@ -17,7 +17,7 @@ namespace Fetch.Api
         public Order()
         {
             this.IsNew = true;
-            this.orderProducts = new SerializableList<OrderProduct>();
+            this.orderProducts = new SerializableList<OrderItem>();
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Fetch.Api
         /// products that are included in this order
         /// </summary>
         [XmlElement("order_products")]
-        public SerializableList<OrderProduct> OrderProducts
+        public SerializableList<OrderItem> OrderProducts
         {
             get
             {
@@ -134,7 +134,7 @@ namespace Fetch.Api
             }
             set { orderProducts = value; }
         }
-        private SerializableList<OrderProduct> orderProducts;
+        private SerializableList<OrderItem> orderProducts;
 
         /// <summary>
         /// Gets true if this order has not been committed to Fetch.  Gets false if this
@@ -303,7 +303,7 @@ namespace Fetch.Api
     /// </summary>
     [Serializable]
     [XmlType("order_product")]
-    public class OrderProduct
+    public class OrderItem
     {
         /// <summary>
         /// unique ID of an product in an order

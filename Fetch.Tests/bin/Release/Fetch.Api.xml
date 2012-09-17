@@ -4,84 +4,13 @@
         <name>Fetch.Api</name>
     </assembly>
     <members>
-        <member name="T:Fetch.Api.Account">
-            <summary>
-            Item is a model object that mirrors the type used by the Fetch REST API, and contains
-            all the properties and methods offered by the API.
-            </summary>
-        </member>
-        <member name="M:Fetch.Api.Account.Details">
-            <summary>
-            Retrieves the account details
-            </summary>
-        </member>
-        <member name="M:Fetch.Api.Account.NewToken">
-            <summary>
-            Generates a new API Token
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Account.Id">
-            <summary>
-            unique identifier for this account (currently the subdomain)
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Account.Name">
-            <summary>
-            Account name
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Account.Email">
-            <summary>
-            Account email address
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Account.BillingEmail">
-            <summary>
-            Billing email address
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Account.ShopifyAddress">
-            <summary>
-            Shopify account address (optional)
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Account.Url">
-            <summary>
-            Account URL
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Account.PaypalAddress">
-            <summary>
-            Paypal Address
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Account.OrderExpirationInHours">
-            <summary>
-            Number of hours an Item is available for download after an order is placed
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Account.DownloadLimitPerItem">
-            <summary>
-            Number of times an Item can be downloaded for an order
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Account.ApiKey">
-            <summary>
-            API key
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Account.ApiToken">
-            <summary>
-            API Token
-            </summary>
-        </member>
         <member name="T:Fetch.Api.SerializableList`1">
             <summary>
             SerializableList is a wrapper for the generic List&lt;&gt; that performs its own serialization,
             to allow the user to add custom attributes to the list.  The .NET Framework List overrides
             any serialization of properties of a custom list class, so they don't get serialized.
             </summary>
-            <typeparam name="ItemType">type of the item in the list</typeparam>
+            <typeparam name="ProductType">type of the product in the list</typeparam>
         </member>
         <member name="M:Fetch.Api.SerializableList`1.#ctor">
             <summary>
@@ -90,17 +19,17 @@
         </member>
         <member name="M:Fetch.Api.SerializableList`1.Add(`0)">
             <summary>
-            Add an item to the list
+            Add an product to the list
             </summary>
         </member>
         <member name="M:Fetch.Api.SerializableList`1.Clear">
             <summary>
-            Clear all items from the list
+            Clear all products from the list
             </summary>
         </member>
         <member name="M:Fetch.Api.SerializableList`1.Contains(`0)">
             <summary>
-            Returns true if the given item exists in the list
+            Returns true if the given product exists in the list
             </summary>
         </member>
         <member name="M:Fetch.Api.SerializableList`1.CopyTo(`0[],System.Int32)">
@@ -111,9 +40,9 @@
         </member>
         <member name="M:Fetch.Api.SerializableList`1.Remove(`0)">
             <summary>
-            Remove the given item from the list
+            Remove the given product from the list
             </summary>
-            <param name="item"></param>
+            <param name="product"></param>
             <returns></returns>
         </member>
         <member name="M:Fetch.Api.SerializableList`1.GetEnumerator">
@@ -147,7 +76,7 @@
         </member>
         <member name="P:Fetch.Api.SerializableList`1.Count">
             <summary>
-            Gets the number of items in the list
+            Gets the number of products in the list
             </summary>
         </member>
         <member name="P:Fetch.Api.SerializableList`1.IsReadOnly">
@@ -160,6 +89,181 @@
             A collection of name/value pairs to be written as attributes of the root
             element of this list
             </summary>
+        </member>
+        <member name="T:Fetch.Api.Download">
+            <summary>
+            Product is a model object that mirrors the type used by the Fetch REST API, and contains
+            all the properties and methods offered by the API.
+            </summary>
+        </member>
+        <member name="M:Fetch.Api.Download.RetrieveAll">
+            <summary>
+            Retrieve all the existing products from Fetch
+            </summary>
+        </member>
+        <member name="M:Fetch.Api.Download.Retrieve(System.Int32)">
+            <summary>
+            Retrieve a specific product from Fetch
+            </summary>
+            <param name="sku">The SKU of the Product to retrieve</param>
+        </member>
+        <member name="P:Fetch.Api.Download.Id">
+            <summary>
+            unique identifier for this product
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Download.OrderId">
+            <summary>
+            Associated order (if present)
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Download.ProductSku">
+            <summary>
+            Product Sku
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Download.IPAddress">
+            <summary>
+            IP Address of client
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Download.DownloadedAt">
+            <summary>
+            date this product was downoloaded
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Download.SizeBytes">
+            <summary>
+            size in bytes of the file attached to this download
+            </summary>
+        </member>
+        <member name="T:Fetch.Api.DownloadCollection">
+            <summary>
+            Represents a collection of products that serializes to match the XML 
+            returned by Fetch
+            </summary>
+        </member>
+        <member name="T:Fetch.Api.Account">
+            <summary>
+            Product is a model object that mirrors the type used by the Fetch REST API, and contains
+            all the properties and methods offered by the API.
+            </summary>
+        </member>
+        <member name="M:Fetch.Api.Account.Details">
+            <summary>
+            Retrieves the account details
+            </summary>
+        </member>
+        <member name="M:Fetch.Api.Account.NewToken">
+            <summary>
+            Generates a new API Token
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Account.Id">
+            <summary>
+            unique identifier for this account (currently the subdomain)
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Account.Name">
+            <summary>
+            Account name
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Account.Email">
+            <summary>
+            Account email address
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Account.BillingEmail">
+            <summary>
+            Billing email address
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Account.Url">
+            <summary>
+            Account URL
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Account.OrderExpirationInHours">
+            <summary>
+            Number of hours an Product is available for download after an order is placed
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Account.DownloadLimitPerProduct">
+            <summary>
+            Number of times an Product can be downloaded for an order
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Account.ApiKey">
+            <summary>
+            API key
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Account.ApiToken">
+            <summary>
+            API Token
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Account.Currency">
+            <summary>
+            Currency
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Account.CreatedAt">
+            <summary>
+            Currency
+            </summary>
+        </member>
+        <member name="T:Fetch.Api.FetchException">
+            <summary>
+            Exceptions specific to the Fetch API
+            </summary>
+        </member>
+        <member name="M:Fetch.Api.FetchException.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Fetch.Api.FetchException.#ctor(System.String)">
+            <summary>
+            constructor with a message to include
+            </summary>
+        </member>
+        <member name="M:Fetch.Api.FetchException.#ctor(System.String,System.Exception)">
+            <summary>
+            constructor with a message and inner exception to include
+            </summary>
+        </member>
+        <member name="T:Fetch.Api.Utility">
+            <summary>
+            Static utility functions
+            </summary>
+        </member>
+        <member name="M:Fetch.Api.Utility.SerializeToXml(System.Object)">
+            <summary>
+            Serializes the given object into an XML string.  Object must have the
+            SerializableAttribute applied.
+            </summary>
+            <param name="target">object to serialize</param>
+            <returns>XML string</returns>
+        </member>
+        <member name="M:Fetch.Api.Utility.DeserializeFromXmlStream``1(System.IO.Stream)">
+            <summary>
+            Deserializes an object of the generic parameter type from the given
+            stream of XML
+            </summary>
+            <typeparam name="T">type of the object to deserialize</typeparam>
+            <param name="stream">XML stream containing the object data</param>
+            <returns>instance of deserialized type</returns>
+        </member>
+        <member name="M:Fetch.Api.Utility.DeserializeFromXml``1(System.String)">
+            <summary>
+            Deserializes an object of the generic parameter type from the given 
+            XML string
+            </summary>
+            <typeparam name="T">type of the object to deserialize</typeparam>
+            <param name="xml">string of XML</param>
+            <returns>instance of deserialized type</returns>
         </member>
         <member name="T:Fetch.Api.Order">
             <summary>
@@ -274,7 +378,7 @@
         </member>
         <member name="P:Fetch.Api.Order.DownloadCount">
             <summary>
-            number of times items in this order have been downloaded
+            number of times products in this order have been downloaded
             </summary>
         </member>
         <member name="P:Fetch.Api.Order.CreatedAt">
@@ -282,9 +386,9 @@
             date that this order was created
             </summary>
         </member>
-        <member name="P:Fetch.Api.Order.OrderItems">
+        <member name="P:Fetch.Api.Order.OrderProducts">
             <summary>
-            items that are included in this order
+            products that are included in this order
             </summary>
         </member>
         <member name="P:Fetch.Api.Order.IsNew">
@@ -301,250 +405,12 @@
         </member>
         <member name="T:Fetch.Api.OrderItem">
             <summary>
-            object that is used to describe items included in an order
+            object that is used to describe products included in an order
             </summary>
         </member>
         <member name="P:Fetch.Api.OrderItem.Sku">
             <summary>
-            unique ID of an item in an order
-            </summary>
-        </member>
-        <member name="T:Fetch.Api.Utility">
-            <summary>
-            Static utility functions
-            </summary>
-        </member>
-        <member name="M:Fetch.Api.Utility.SerializeToXml(System.Object)">
-            <summary>
-            Serializes the given object into an XML string.  Object must have the
-            SerializableAttribute applied.
-            </summary>
-            <param name="target">object to serialize</param>
-            <returns>XML string</returns>
-        </member>
-        <member name="M:Fetch.Api.Utility.DeserializeFromXmlStream``1(System.IO.Stream)">
-            <summary>
-            Deserializes an object of the generic parameter type from the given
-            stream of XML
-            </summary>
-            <typeparam name="T">type of the object to deserialize</typeparam>
-            <param name="stream">XML stream containing the object data</param>
-            <returns>instance of deserialized type</returns>
-        </member>
-        <member name="M:Fetch.Api.Utility.DeserializeFromXml``1(System.String)">
-            <summary>
-            Deserializes an object of the generic parameter type from the given 
-            XML string
-            </summary>
-            <typeparam name="T">type of the object to deserialize</typeparam>
-            <param name="xml">string of XML</param>
-            <returns>instance of deserialized type</returns>
-        </member>
-        <member name="T:Fetch.Api.FetchException">
-            <summary>
-            Exceptions specific to the Fetch API
-            </summary>
-        </member>
-        <member name="M:Fetch.Api.FetchException.#ctor">
-            <summary>
-            default constructor
-            </summary>
-        </member>
-        <member name="M:Fetch.Api.FetchException.#ctor(System.String)">
-            <summary>
-            constructor with a message to include
-            </summary>
-        </member>
-        <member name="M:Fetch.Api.FetchException.#ctor(System.String,System.Exception)">
-            <summary>
-            constructor with a message and inner exception to include
-            </summary>
-        </member>
-        <member name="T:Fetch.Api.Config">
-            <summary>
-            Configuration parameters for the connection to Fetch
-            </summary>
-        </member>
-        <member name="M:Fetch.Api.Config.GetAuthorization">
-            <summary>
-            Retrieves the key/token pair encoded to be sent in a request to authenticate 
-            the request
-            </summary>
-            <returns>base64 encoded key/token pair</returns>
-        </member>
-        <member name="P:Fetch.Api.Config.Domain">
-            <summary>
-            The domain used to connect to your account
-            </summary>
-            <example>http://&lt;subdomain.fetchapp.com&gt;/</example>
-        </member>
-        <member name="P:Fetch.Api.Config.SubDomain">
-            <summary>
-            The subdomain used to connect to your account. DEPRECIATED.
-            </summary>
-            <example>http://&lt;subdomain&gt;.fetchapp.com/</example>
-        </member>
-        <member name="P:Fetch.Api.Config.Key">
-            <summary>
-            Authentication key used to log into the Fetch API. 
-            Log in to your Fetch website and click "API" to retrieve your Key and Token.
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Config.Token">
-            <summary>
-            Authentication token used to log into the Fetch API.
-            Log in to your Fetch website and click "API" to retrieve your Key and Token.
-            </summary>
-        </member>
-        <member name="T:Fetch.Api.Item">
-            <summary>
-            Item is a model object that mirrors the type used by the Fetch REST API, and contains
-            all the properties and methods offered by the API.
-            </summary>
-        </member>
-        <member name="M:Fetch.Api.Item.#ctor">
-            <summary>
-            default constructor
-            </summary>
-        </member>
-        <member name="M:Fetch.Api.Item.Save">
-            <summary>
-            Commits the current item to Fetch.  Item is created if new, 
-            or updated if existing.
-            </summary>
-        </member>
-        <member name="M:Fetch.Api.Item.Delete">
-            <summary>
-            Deletes the current item from Fetch.
-            </summary>
-        </member>
-        <member name="M:Fetch.Api.Item.RetrieveAll">
-            <summary>
-            Retrieve all the existing items from Fetch
-            </summary>
-        </member>
-        <member name="M:Fetch.Api.Item.Retrieve(System.String)">
-            <summary>
-            Retrieve a specific item from Fetch
-            </summary>
-            <param name="sku">The SKU of the Item to retrieve</param>
-        </member>
-        <member name="M:Fetch.Api.Item.Delete(System.String)">
-            <summary>
-            Deletes an item from Fetch
-            </summary>
-            <param name="sku">the SKU of the Item to delete</param>
-        </member>
-        <member name="M:Fetch.Api.Item.Create(Fetch.Api.Item)">
-            <summary>
-            Creates a new item in Fetch
-            </summary>
-            <returns>the actual item object that was created by Fetch</returns>
-        </member>
-        <member name="M:Fetch.Api.Item.Update(Fetch.Api.Item)">
-            <summary>
-            Updates the given item in Fetch
-            </summary>
-            <returns>the actual item object that was updated in Fetch</returns>
-        </member>
-        <member name="P:Fetch.Api.Item.Sku">
-            <summary>
-            unique identifier for this item
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Item.Name">
-            <summary>
-            friendly name of the item
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Item.DownloadCount">
-            <summary>
-            number of times this Item has been downloaded from Fetch
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Item.CreatedAt">
-            <summary>
-            date this item was created
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Item.Filename">
-            <summary>
-            The name of the file attached to this item
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Item.SizeBytes">
-            <summary>
-            size in bytes of the file attached to this item
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Item.ContentType">
-            <summary>
-            type of file attached to this item
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Item.IsNew">
-            <summary>
-            Gets true if this item has not been committed to Fetch.  Gets false if this
-            item already exists in Fetch.
-            </summary>
-        </member>
-        <member name="T:Fetch.Api.ItemCollection">
-            <summary>
-            Represents a collection of items that serializes to match the XML 
-            returned by Fetch
-            </summary>
-        </member>
-        <member name="T:Fetch.Api.Download">
-            <summary>
-            Item is a model object that mirrors the type used by the Fetch REST API, and contains
-            all the properties and methods offered by the API.
-            </summary>
-        </member>
-        <member name="M:Fetch.Api.Download.RetrieveAll">
-            <summary>
-            Retrieve all the existing items from Fetch
-            </summary>
-        </member>
-        <member name="M:Fetch.Api.Download.Retrieve(System.Int32)">
-            <summary>
-            Retrieve a specific item from Fetch
-            </summary>
-            <param name="sku">The SKU of the Item to retrieve</param>
-        </member>
-        <member name="P:Fetch.Api.Download.Id">
-            <summary>
-            unique identifier for this item
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Download.OrderId">
-            <summary>
-            Associated order (if present)
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Download.ItemSku">
-            <summary>
-            Item Sku
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Download.IPAddress">
-            <summary>
-            IP Address of client
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Download.DownloadedAt">
-            <summary>
-            date this item was downoloaded
-            </summary>
-        </member>
-        <member name="P:Fetch.Api.Download.SizeBytes">
-            <summary>
-            size in bytes of the file attached to this download
-            </summary>
-        </member>
-        <member name="T:Fetch.Api.DownloadCollection">
-            <summary>
-            Represents a collection of items that serializes to match the XML 
-            returned by Fetch
+            unique ID of an product in an order
             </summary>
         </member>
         <member name="T:Fetch.Api.RestConnection`1">
@@ -603,6 +469,140 @@
             the additional information
             </summary>
         </member>
+        <member name="T:Fetch.Api.Config">
+            <summary>
+            Configuration parameters for the connection to Fetch
+            </summary>
+        </member>
+        <member name="M:Fetch.Api.Config.GetAuthorization">
+            <summary>
+            Retrieves the key/token pair encoded to be sent in a request to authenticate 
+            the request
+            </summary>
+            <returns>base64 encoded key/token pair</returns>
+        </member>
+        <member name="P:Fetch.Api.Config.Domain">
+            <summary>
+            The domain used to connect to your account
+            </summary>
+            <example>http://&lt;subdomain.fetchapp.com&gt;/</example>
+        </member>
+        <member name="P:Fetch.Api.Config.SubDomain">
+            <summary>
+            The subdomain used to connect to your account. DEPRECIATED.
+            </summary>
+            <example>http://&lt;subdomain&gt;.fetchapp.com/</example>
+        </member>
+        <member name="P:Fetch.Api.Config.Key">
+            <summary>
+            Authentication key used to log into the Fetch API. 
+            Log in to your Fetch website and click "API" to retrieve your Key and Token.
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Config.Token">
+            <summary>
+            Authentication token used to log into the Fetch API.
+            Log in to your Fetch website and click "API" to retrieve your Key and Token.
+            </summary>
+        </member>
+        <member name="T:Fetch.Api.Product">
+            <summary>
+            Product is a model object that mirrors the type used by the Fetch REST API, and contains
+            all the properties and methods offered by the API.
+            </summary>
+        </member>
+        <member name="M:Fetch.Api.Product.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="M:Fetch.Api.Product.Save">
+            <summary>
+            Commits the current product to Fetch.  Product is created if new, 
+            or updated if existing.
+            </summary>
+        </member>
+        <member name="M:Fetch.Api.Product.Delete">
+            <summary>
+            Deletes the current product from Fetch.
+            </summary>
+        </member>
+        <member name="M:Fetch.Api.Product.RetrieveAll">
+            <summary>
+            Retrieve all the existing products from Fetch
+            </summary>
+        </member>
+        <member name="M:Fetch.Api.Product.Retrieve(System.String)">
+            <summary>
+            Retrieve a specific product from Fetch
+            </summary>
+            <param name="sku">The SKU of the Product to retrieve</param>
+        </member>
+        <member name="M:Fetch.Api.Product.Delete(System.String)">
+            <summary>
+            Deletes an product from Fetch
+            </summary>
+            <param name="sku">the SKU of the Product to delete</param>
+        </member>
+        <member name="M:Fetch.Api.Product.Create(Fetch.Api.Product)">
+            <summary>
+            Creates a new product in Fetch
+            </summary>
+            <returns>the actual product object that was created by Fetch</returns>
+        </member>
+        <member name="M:Fetch.Api.Product.Update(Fetch.Api.Product)">
+            <summary>
+            Updates the given product in Fetch
+            </summary>
+            <returns>the actual product object that was updated in Fetch</returns>
+        </member>
+        <member name="P:Fetch.Api.Product.Sku">
+            <summary>
+            unique identifier for this product
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Product.Name">
+            <summary>
+            friendly name of the product
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Product.DownloadCount">
+            <summary>
+            number of times this Product has been downloaded from Fetch
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Product.CreatedAt">
+            <summary>
+            date this product was created
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Product.Filename">
+            <summary>
+            The name of the file attached to this product
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Product.SizeBytes">
+            <summary>
+            size in bytes of the file attached to this product
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Product.ContentType">
+            <summary>
+            type of file attached to this product
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Product.IsNew">
+            <summary>
+            Gets true if this product has not been committed to Fetch.  Gets false if this
+            product already exists in Fetch.
+            </summary>
+        </member>
+        <member name="T:Fetch.Api.ProductCollection">
+            <summary>
+            Represents a collection of products that serializes to match the XML 
+            returned by Fetch
+            </summary>
+        </member>
         <member name="T:Fetch.Api.Message">
             <summary>
             Represents messages returned from Fetch REST GET commands that contain results
@@ -623,6 +623,59 @@
         <member name="P:Fetch.Api.Message.Text">
             <summary>
             The body of the message.
+            </summary>
+        </member>
+        <member name="T:Fetch.Api.Upload">
+            <summary>
+            Product is a model object that mirrors the type used by the Fetch REST API, and contains
+            all the properties and methods offered by the API.
+            </summary>
+        </member>
+        <member name="M:Fetch.Api.Upload.RetrieveAll">
+            <summary>
+            Retrieve all the existing products from Fetch
+            </summary>
+        </member>
+        <member name="M:Fetch.Api.Upload.Retrieve(System.Int32)">
+            <summary>
+            Retrieve a specific product from Fetch
+            </summary>
+            <param name="sku">The SKU of the Product to retrieve</param>
+        </member>
+        <member name="P:Fetch.Api.Upload.Id">
+            <summary>
+            unique identifier for this product
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Upload.OrderId">
+            <summary>
+            Associated order (if present)
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Upload.ProductSku">
+            <summary>
+            Product Sku
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Upload.IPAddress">
+            <summary>
+            IP Address of client
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Upload.UploadedAt">
+            <summary>
+            date this product was uploaded
+            </summary>
+        </member>
+        <member name="P:Fetch.Api.Upload.SizeBytes">
+            <summary>
+            size in bytes of the file attached to this upload
+            </summary>
+        </member>
+        <member name="T:Fetch.Api.UploadCollection">
+            <summary>
+            Represents a collection of products that serializes to match the XML 
+            returned by Fetch
             </summary>
         </member>
     </members>

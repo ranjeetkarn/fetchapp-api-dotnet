@@ -58,17 +58,6 @@ namespace Fetch.Api
         private string billingEmail;
 
         /// <summary>
-        /// Shopify account address (optional)
-        /// </summary>
-        [XmlElement("shopify_address")]
-        public string ShopifyAddress
-        {
-            get { return shopifyAddress; }
-            set { shopifyAddress = value; }
-        }
-        private string shopifyAddress;
-
-        /// <summary>
         /// Account URL
         /// </summary>
         [XmlElement("url")]
@@ -78,17 +67,6 @@ namespace Fetch.Api
             set { url = value; }
         }
         private string url;
-
-        /// <summary>
-        /// Paypal Address
-        /// </summary>
-        [XmlElement("paypal_address")]
-        public string PaypalAddress
-        {
-            get { return paypalAddress; }
-            set { paypalAddress = value; }
-        }
-        private string paypalAddress;
 
         /// <summary>
         /// Number of hours an Product is available for download after an order is placed
@@ -133,6 +111,30 @@ namespace Fetch.Api
             set { apiToken = value; }
         }
         private string apiToken;
+
+
+        /// <summary>
+        /// Currency
+        /// </summary>
+        [XmlElement("currency")]
+        public string Currency
+        {
+            get { return currency; }
+            set { currency = value; }
+        }
+        private string currency;
+
+        /// <summary>
+        /// Currency
+        /// </summary>
+        [XmlElement("createdAt")]
+        public string CreatedAt
+        {
+            get { return createdAt; }
+            set { createdAt = value; }
+        }
+        private string createdAt;
+
 
         #region Static Methods
 

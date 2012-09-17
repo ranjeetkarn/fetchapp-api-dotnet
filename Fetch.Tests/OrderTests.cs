@@ -130,11 +130,11 @@ namespace Fetch.Tests
             order.ExpirationDate = DateTime.Now.AddDays( 1.0 );
             order.SendEmailFlag = false;
 
-            OrderProduct i = new OrderProduct();
+            OrderItem i = new OrderItem();
             i.Sku = product1Sku;
             order.OrderProducts.Add( i );
 
-            i = new OrderProduct();
+            i = new OrderItem();
             i.Sku = product2Sku;
             order.OrderProducts.Add( i );
             return order;

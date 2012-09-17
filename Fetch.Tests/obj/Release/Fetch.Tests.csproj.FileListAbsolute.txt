@@ -9,3 +9,13 @@ Z:\michaellarkin On My Mac\development\dotnet\fetchapi-dotnet\Fetch.Tests\obj\Re
 Z:\michaellarkin On My Mac\development\dotnet\fetchapi-dotnet\Fetch.Tests\obj\Release\Fetch.Tests.dll
 Z:\michaellarkin On My Mac\development\dotnet\fetchapi-dotnet\Fetch.Tests\obj\Release\Fetch.Tests.pdb
 Z:\michaellarkin On My Mac\development\dotnet\fetchapi-dotnet\Fetch.Tests\bin\Release\Fetch.Tests.dll.config
+C:\Users\Gaurav\Documents\GitHub\fetchapp-api-dotnet\Fetch.Tests\bin\Release\Fetch.Tests.dll.config
+C:\Users\Gaurav\Documents\GitHub\fetchapp-api-dotnet\Fetch.Tests\bin\Release\Fetch.Tests.dll
+C:\Users\Gaurav\Documents\GitHub\fetchapp-api-dotnet\Fetch.Tests\bin\Release\Fetch.Tests.pdb
+C:\Users\Gaurav\Documents\GitHub\fetchapp-api-dotnet\Fetch.Tests\bin\Release\Fetch.Api.dll
+C:\Users\Gaurav\Documents\GitHub\fetchapp-api-dotnet\Fetch.Tests\bin\Release\Fetch.Api.pdb
+C:\Users\Gaurav\Documents\GitHub\fetchapp-api-dotnet\Fetch.Tests\bin\Release\Fetch.Api.xml
+C:\Users\Gaurav\Documents\GitHub\fetchapp-api-dotnet\Fetch.Tests\bin\Release\nunit.framework.xml
+C:\Users\Gaurav\Documents\GitHub\fetchapp-api-dotnet\Fetch.Tests\obj\Release\Fetch.Tests.csprojResolveAssemblyReference.cache
+C:\Users\Gaurav\Documents\GitHub\fetchapp-api-dotnet\Fetch.Tests\obj\Release\Fetch.Tests.dll
+C:\Users\Gaurav\Documents\GitHub\fetchapp-api-dotnet\Fetch.Tests\obj\Release\Fetch.Tests.pdb
