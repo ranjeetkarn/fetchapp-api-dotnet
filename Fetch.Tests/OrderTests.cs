@@ -132,11 +132,11 @@ namespace Fetch.Tests
 
             OrderItem i = new OrderItem();
             i.Sku = product1Sku;
-            order.OrderProducts.Add( i );
+            order.OrderItems.Add( i );
 
             i = new OrderItem();
             i.Sku = product2Sku;
-            order.OrderProducts.Add( i );
+            order.OrderItems.Add( i );
             return order;
         }
 

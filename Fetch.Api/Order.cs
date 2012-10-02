@@ -17,7 +17,7 @@ namespace Fetch.Api
         public Order()
         {
             this.IsNew = true;
-            this.orderProducts = new SerializableList<OrderItem>();
+            this.orderItems = new SerializableList<OrderItem>();
         }
 
         /// <summary>
@@ -119,22 +119,35 @@ namespace Fetch.Api
         }
         private DateTime createdAt;
 
+
+        /// <summary>
+        /// order_items_uri needs to be called to retrieve order_items_uri
+        /// </summary>
+        [XmlElement("order_items_uri")]
+        public SerializableList<OrderItem> OrderItemsUri
+        {
+            get
+            { return orderItemsUri; }
+            set { orderItemsUri = value; }
+        }
+        private SerializableList<OrderItem> orderItemsUri;
+
         /// <summary>
         /// products that are included in this order
         /// </summary>
-        [XmlElement("order_products")]
-        public SerializableList<OrderItem> OrderProducts
+        [XmlElement("order_items")]
+        public SerializableList<OrderItem> OrderItems
         {
             get
             {
                 // make sure this attribute is always on it,
                 // b/c it does not come back when deserialized
-                orderProducts.Attributes["type"] = "array";
-                return orderProducts;
+                orderItems.Attributes["type"] = "array";
+                return orderItems;
             }
-            set { orderProducts = value; }
+            set { orderItems = value; }
         }
-        private SerializableList<OrderItem> orderProducts;
+        private SerializableList<OrderItem> orderItems;
 
         /// <summary>
         /// Gets true if this order has not been committed to Fetch.  Gets false if this
@@ -297,25 +310,4 @@ namespace Fetch.Api
     public class OrderCollection : List<Order>
     {
     }
-
-    /// <summary>
-    /// object that is used to describe products included in an order
-    /// </summary>
-    [Serializable]
-    [XmlType("order_product")]
-    public class OrderItem
-    {
-        /// <summary>
-        /// unique ID of an product in an order
-        /// </summary>
-        [XmlElement("sku")]
-        public string Sku
-        {
-            get { return sku; }
-            set { sku = value; }
-        }
-        private string sku;
-
-    }
-
 }
